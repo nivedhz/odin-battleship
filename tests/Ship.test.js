@@ -18,6 +18,7 @@ describe("Sink", () => {
     ship.hit();
     ship.hit();
     ship.hit();
+    ship.hit();
     expect(ship.isSunk()).toBe(true);
     expect(ship.sunkStatus).toBe(true);
   });
