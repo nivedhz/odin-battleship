@@ -1,8 +1,8 @@
 export const Ship = () => {
   return {
-    length,
-    hitNo,
-    sunkStatus,
+    length: 0,
+    hitNo: 0,
+    sunkStatus: false,
     hit() {
       this.hitNo++;
     },
@@ -11,6 +11,7 @@ export const Ship = () => {
         this.sunkStatus = true;
         return true;
       }
+      return false;
     },
   };
 };
