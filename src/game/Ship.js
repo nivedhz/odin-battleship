@@ -6,6 +6,7 @@ export const Ship = () => {
     sunkStatus: false,
     hit() {
       this.hitNo++;
+      this.isSunk();
     },
     isSunk() {
       if (this.hitNo >= this.length) {
