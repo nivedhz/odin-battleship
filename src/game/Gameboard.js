@@ -33,9 +33,16 @@ export const Gameboard = () => {
       let randomCoordinate = Math.floor(Math.random() * ship.ship.length);
       let shipLength = ship.ship.length;
       while (shipLength !== 0) {
-        coordinates[randomCoordinateLevel][randomCoordinate] = ship.ship;
-        randomCoordinate++;
-        shipLength--;
+        if (
+          typeof coordinates[randomCoordinateLevel][randomCoordinate] ===
+            "object" &&
+          coordinates[randomCoordinateLevel][randomCoordinate] !== null &&
+          Array.isArray(coordinates[randomCoordinateLevel][randomCoordinate])
+        ) {
+          coordinates[randomCoordinateLevel][randomCoordinate] = ship.ship;
+          randomCoordinate++;
+          shipLength--;
+        } else return;
       }
     });
   }
@@ -44,7 +51,26 @@ export const Gameboard = () => {
   return {
     coordinates,
     missedAttacks: 0,
-    receiveAttack(coordinates) {},
+    attackedSpot: new Set(),
+    receiveAttack(coordinates) {
+      let [x, y] = coordinates;
+      x -= 1;
+      y -= 1;
+      if (x > 7 || y > 7) return;
+      if (!this.attackedSpot.has(JSON.stringify([x, y]))) {
+        if (
+          typeof this.coordinates[x][y] === "object" &&
+          this.coordinates[x][y] !== null &&
+          !Array.isArray(this.coordinates[x][y])
+        ) {
+          this.coordinates[x][y].hit();
+        } else {
+          console.log("Missed Target");
+          this.missedAttacks++;
+        }
+        this.attackedSpot.add(JSON.stringify([x, y]));
+      } else return;
+    },
     reportSunkStatus() {},
   };
 };
