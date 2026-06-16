@@ -1,3 +1,5 @@
+import { Ship } from "./Ship.js";
+
 export const Gameboard = () => {
   const coordinates = [];
   function initCoordinates() {
@@ -9,23 +11,36 @@ export const Gameboard = () => {
       coordinates.push(coordinateLevels);
     }
   }
-  function placeShips() {
-    let randomCoordinateLevel = Math.floor(Math.random() * coordinates.length);
-    let randomCoordinate = Math.floor(Math.random() * 7);
-    let ship = "Battleship";
-    let shipLength = 5;
-    while (shipLength !== 0) {
-      if (randomCoordinate + shipLength <= 7) {
-        coordinates[randomCoordinateLevel][randomCoordinate] = ship;
+  function initShips() {
+    const shipTypes = [
+      { ship: Ship(), name: "Aircraft Carrier", length: 5 },
+      { ship: Ship(), name: "Battleship", length: 4 },
+      { ship: Ship(), name: "Cruiser", length: 3 },
+      { ship: Ship(), name: "Destroyer", length: 3 },
+      { ship: Ship(), name: "Submarine", length: 2 },
+    ];
+    shipTypes.forEach((ship) => {
+      ship.ship.name = ship.name;
+      ship.ship.length = ship.length;
+    });
+    return shipTypes;
+  }
+  function placeShips(ships) {
+    ships.forEach((ship) => {
+      let randomCoordinateLevel = Math.floor(
+        Math.random() * coordinates.length,
+      );
+      let randomCoordinate = Math.floor(Math.random() * ship.ship.length);
+      let shipLength = ship.ship.length;
+      while (shipLength !== 0) {
+        coordinates[randomCoordinateLevel][randomCoordinate] = ship.ship;
         randomCoordinate++;
         shipLength--;
-      } else {
-        throw new Error("Out of bounds");
       }
-    }
+    });
   }
   initCoordinates();
-  placeShips();
+  placeShips(initShips());
   return {
     coordinates,
     missedAttacks: 0,
