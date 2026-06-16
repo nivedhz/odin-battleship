@@ -1,5 +1,6 @@
 export const Ship = () => {
   return {
+    name: "",
     length: 0,
     hitNo: 0,
     sunkStatus: false,
