@@ -5,8 +5,10 @@ export const Ship = () => {
     hitNo: 0,
     sunkStatus: false,
     hit() {
-      this.hitNo++;
-      this.isSunk();
+      if (!this.isSunk()) {
+        this.hitNo++;
+        this.isSunk();
+      } else return;
     },
     isSunk() {
       if (this.hitNo >= this.length) {
