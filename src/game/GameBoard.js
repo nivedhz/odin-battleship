@@ -1,7 +1,9 @@
-import { Ship } from "./Ship.js";
+import Ship from "./Ship.js";
 
-export const Gameboard = () => {
+const GameBoard = () => {
   const coordinates = [];
+  let missedAttacks = 0;
+  let attackedSpot = new Set();
   function initCoordinates() {
     for (let i = 1; i <= 7; i++) {
       const coordinateLevels = [];
@@ -11,7 +13,7 @@ export const Gameboard = () => {
       coordinates.push(coordinateLevels);
     }
   }
-  function initShips() {
+  function placeShips() {
     const shipTypes = [
       { ship: Ship(), name: "Aircraft Carrier", length: 5 },
       { ship: Ship(), name: "Battleship", length: 4 },
@@ -23,10 +25,7 @@ export const Gameboard = () => {
       ship.ship.name = ship.name;
       ship.ship.length = ship.length;
     });
-    return shipTypes;
-  }
-  function placeShips(ships) {
-    ships.forEach((ship) => {
+    shipTypes.forEach((ship) => {
       let randomCoordinateLevel = Math.floor(
         Math.random() * coordinates.length,
       );
@@ -42,38 +41,51 @@ export const Gameboard = () => {
           coordinates[randomCoordinateLevel][randomCoordinate] = ship.ship;
           randomCoordinate++;
           shipLength--;
-        } else return;
+        } else return new Error("Invalid Ship Placement");
       }
     });
   }
+  async function retryTillSuccess(fn, ...args) {
+    let success = false;
+
+    while (!success) {
+      try {
+        await fn(...args);
+        success = true;
+      } catch (error) {
+        return new Error(error.message);
+      }
+    }
+  }
   initCoordinates();
-  placeShips(initShips());
+  retryTillSuccess(placeShips);
   return {
-    coordinates,
-    missedAttacks: 0,
-    attackedSpot: new Set(),
+    logCoordinates() {
+      console.log(coordinates);
+    },
     receiveAttack(coordinates) {
       let [x, y] = coordinates;
       x -= 1;
       y -= 1;
       if (x > 7 || y > 7) return;
-      if (!this.attackedSpot.has(JSON.stringify([x, y]))) {
+      if (!attackedSpot.has(JSON.stringify([x, y]))) {
         if (
-          typeof this.coordinates[x][y] === "object" &&
-          this.coordinates[x][y] !== null &&
-          !Array.isArray(this.coordinates[x][y])
+          typeof coordinates[x][y] === "object" &&
+          coordinates[x][y] !== null &&
+          !Array.isArray(coordinates[x][y])
         ) {
-          this.coordinates[x][y].hit();
+          coordinates[x][y].hit();
         } else {
           console.log("Missed Target");
-          this.missedAttacks++;
+          missedAttacks++;
         }
-        this.attackedSpot.add(JSON.stringify([x, y]));
+        attackedSpot.add(JSON.stringify([x, y]));
       } else return;
     },
     reportSunkStatus() {},
   };
 };
+const game = GameBoard();
+game.logCoordinates();
 
-const game = Gameboard();
-console.log(game.coordinates);
+export default GameBoard;
