@@ -1,4 +1,4 @@
-export const Ship = () => {
+const Ship = () => {
   return {
     name: "",
     length: 0,
@@ -19,3 +19,4 @@ export const Ship = () => {
     },
   };
 };
+export default Ship;

@@ -1,1 +1,1 @@
-import { Ship } from "../src/game/Ship";
+import Ship from "../src/game/Ship";

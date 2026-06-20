@@ -1,1 +1,1 @@
-import { Player } from "../src/game/Player";
+import Player from "../src/game/Player";

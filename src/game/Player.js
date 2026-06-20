@@ -1,7 +1,8 @@
-import { Gameboard } from "./Gameboard.js";
+import GameBoard from "./GameBoard.js";
 
-export const Player = () => {
+const Player = () => {
   return {
-    gameboard: Gameboard(),
+    gameboard: GameBoard(),
   };
 };
+export default Player;
