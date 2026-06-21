@@ -144,3 +144,47 @@ test("same coordinate cannot damage ship twice", () => {
 
   expect(ship.hitNo).toBe(1);
 });
+test("returns true when all ships are sunk", () => {
+  const board = GameBoard();
+
+  const attackedShips = new Set();
+
+  board.coordinates.forEach((row, r) => {
+    row.forEach((cell, c) => {
+      if (typeof cell === "object" && !attackedShips.has(cell)) {
+        attackedShips.add(cell);
+
+        for (let i = 0; i < cell.length; i++) {
+          cell.hit();
+        }
+      }
+    });
+  });
+
+  expect(board.reportSunkStatus()).toBe(true);
+});
+test("returns false when not all ships are sunk", () => {
+  const board = GameBoard();
+
+  expect(board.reportSunkStatus()).toBe(false);
+});
+test("returns false when only some ships are sunk", () => {
+  const board = GameBoard();
+
+  let firstShip;
+
+  outer: for (const row of board.coordinates) {
+    for (const cell of row) {
+      if (typeof cell === "object") {
+        firstShip = cell;
+        break outer;
+      }
+    }
+  }
+
+  for (let i = 0; i < firstShip.length; i++) {
+    firstShip.hit();
+  }
+
+  expect(board.reportSunkStatus()).toBe(false);
+});
