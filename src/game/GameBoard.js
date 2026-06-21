@@ -51,11 +51,7 @@ const GameBoard = () => {
 
   generateRandomLayout();
   return {
-    logCoordinates() {
-      console.log(coordinates);
-      console.log(attackedSpot);
-    },
-
+    coordinates,
     receiveAttack(coords) {
       let [x, y] = coords;
       x -= 1;
@@ -75,7 +71,5 @@ const GameBoard = () => {
     reportSunkStatus() {},
   };
 };
-const game = GameBoard();
-game.logCoordinates();
 
 export default GameBoard;
