@@ -69,7 +69,9 @@ const GameBoard = () => {
       attackedSpot.add(JSON.stringify([x, y]));
     },
 
-    reportSunkStatus() {},
+    reportSunkStatus() {
+      return shipTypes.every((ship) => ship.sunkStatus);
+    },
   };
 };
 
