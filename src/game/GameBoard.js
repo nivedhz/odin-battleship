@@ -14,6 +14,7 @@ const GameBoard = () => {
   ];
   let missedAttacks = 0;
   let attackedSpot = new Set();
+
   function canPlaceShip(row, col, size, isHorizontal) {
     for (let i = 0; i < size; i++) {
       let r = row + (isHorizontal ? 0 : i);
@@ -36,42 +37,41 @@ const GameBoard = () => {
         for (let i = 0; i < ship.length; i++) {
           let r = row + (isHorizontal ? 0 : i);
           let c = col + (isHorizontal ? i : 0);
-          coordinates[r][c] = ship.name;
+          coordinates[r][c] = ship;
         }
         placed = true;
       }
     }
   }
-
   function generateRandomLayout() {
     shipTypes.sort((a, b) => b.length - a.length);
 
     shipTypes.forEach((ship) => placeShipRandomly(ship));
   }
+
   generateRandomLayout();
   return {
     logCoordinates() {
-      console.table(coordinates);
+      console.log(coordinates);
+      console.log(attackedSpot);
     },
-    receiveAttack(coordinates) {
-      let [x, y] = coordinates;
+
+    receiveAttack(coords) {
+      let [x, y] = coords;
       x -= 1;
       y -= 1;
-      if (x > 7 || y > 7) return;
+      if (x > BOARD_SIZE || y > BOARD_SIZE) return;
       if (!attackedSpot.has(JSON.stringify([x, y]))) {
-        if (
-          typeof coordinates[x][y] === "object" &&
-          coordinates[x][y] !== null &&
-          !Array.isArray(coordinates[x][y])
-        ) {
+        if (coordinates[x][y] !== 0 && typeof coordinates[x][y] === "object") {
           coordinates[x][y].hit();
         } else {
-          console.log("Missed Target");
+          coordinates[x][y] = 1;
           missedAttacks++;
         }
-        attackedSpot.add(JSON.stringify([x, y]));
-      } else return;
+      }
+      attackedSpot.add(JSON.stringify([x, y]));
     },
+
     reportSunkStatus() {},
   };
 };
