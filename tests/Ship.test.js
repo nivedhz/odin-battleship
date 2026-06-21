@@ -32,3 +32,18 @@ test("ship cannot be hit after sinking", () => {
 
   expect(ship.hitNo).toBe(2);
 });
+
+test("creates ship with correct name and length", () => {
+  const ship = Ship("Destroyer", 2);
+
+  expect(ship.name).toBe("Destroyer");
+  expect(ship.length).toBe(2);
+});
+
+test("is not sunk before enough hits", () => {
+  const ship = Ship("Destroyer", 2);
+
+  ship.hit();
+
+  expect(ship.isSunk()).toBe(false);
+});
