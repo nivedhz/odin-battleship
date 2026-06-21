@@ -6,7 +6,7 @@ test("player has a gameboard", () => {
   expect(player.gameboard).toBeDefined();
 });
 
-test("player gameboard exists", () => {
+test("gameboard has receiveAttack method", () => {
   const player = Player();
 
   expect(typeof player.gameboard.receiveAttack).toBe("function");

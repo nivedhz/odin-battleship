@@ -52,6 +52,7 @@ const GameBoard = () => {
   generateRandomLayout();
   return {
     coordinates,
+    missedAttacks,
     receiveAttack(coords) {
       let [x, y] = coords;
       x -= 1;

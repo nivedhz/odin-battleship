@@ -84,3 +84,63 @@ test("same attack does not count twice", () => {
 
   expect(ship.hitNo).toBe(1);
 });
+test("places all five ships", () => {
+  const board = GameBoard();
+
+  const ships = new Set();
+
+  board.coordinates.forEach((row) => {
+    row.forEach((cell) => {
+      if (typeof cell === "object") {
+        ships.add(cell.name);
+      }
+    });
+  });
+
+  expect(ships.size).toBe(5);
+});
+test("attacking ship increases hit count", () => {
+  const board = GameBoard();
+
+  let ship;
+  let target;
+
+  for (let r = 0; r < 7; r++) {
+    for (let c = 0; c < 7; c++) {
+      if (typeof board.coordinates[r][c] === "object") {
+        ship = board.coordinates[r][c];
+        target = [r + 1, c + 1];
+        break;
+      }
+    }
+
+    if (target) break;
+  }
+
+  board.receiveAttack(target);
+
+  expect(ship.hitNo).toBe(1);
+});
+test("same coordinate cannot damage ship twice", () => {
+  const board = GameBoard();
+
+  let ship;
+  let target;
+
+  for (let r = 0; r < 7; r++) {
+    for (let c = 0; c < 7; c++) {
+      if (typeof board.coordinates[r][c] === "object") {
+        ship = board.coordinates[r][c];
+        target = [r + 1, c + 1];
+        break;
+      }
+    }
+
+    if (target) break;
+  }
+
+  board.receiveAttack(target);
+  board.receiveAttack(target);
+
+  expect(ship.hitNo).toBe(1);
+});
