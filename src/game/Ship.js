@@ -1,7 +1,7 @@
-const Ship = () => {
+const Ship = (name, length) => {
   return {
-    name: "",
-    length: 0,
+    name,
+    length,
     hitNo: 0,
     sunkStatus: false,
     hit() {

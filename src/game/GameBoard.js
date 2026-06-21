@@ -1,67 +1,57 @@
 import Ship from "./Ship.js";
 
 const GameBoard = () => {
-  const coordinates = [];
+  const BOARD_SIZE = 7;
+  const coordinates = Array(BOARD_SIZE)
+    .fill(null)
+    .map(() => Array(BOARD_SIZE).fill(0));
+  const shipTypes = [
+    Ship("Carrier", 5),
+    Ship("Battleship", 4),
+    Ship("Cruiser", 3),
+    Ship("Submarine", 3),
+    Ship("Destroyer", 2),
+  ];
   let missedAttacks = 0;
   let attackedSpot = new Set();
-  function initCoordinates() {
-    for (let i = 1; i <= 7; i++) {
-      const coordinateLevels = [];
-      for (let j = 1; j <= 7; j++) {
-        coordinateLevels.push([i, j]);
-      }
-      coordinates.push(coordinateLevels);
+  function canPlaceShip(row, col, size, isHorizontal) {
+    for (let i = 0; i < size; i++) {
+      let r = row + (isHorizontal ? 0 : i);
+      let c = col + (isHorizontal ? i : 0);
+      if (r >= BOARD_SIZE || c >= BOARD_SIZE) return false;
+      if (coordinates[r][c]) return false;
     }
+    return true;
   }
-  function placeShips() {
-    const shipTypes = [
-      { ship: Ship(), name: "Aircraft Carrier", length: 5 },
-      { ship: Ship(), name: "Battleship", length: 4 },
-      { ship: Ship(), name: "Cruiser", length: 3 },
-      { ship: Ship(), name: "Destroyer", length: 3 },
-      { ship: Ship(), name: "Submarine", length: 2 },
-    ];
-    shipTypes.forEach((ship) => {
-      ship.ship.name = ship.name;
-      ship.ship.length = ship.length;
-    });
-    shipTypes.forEach((ship) => {
-      let randomCoordinateLevel = Math.floor(
-        Math.random() * coordinates.length,
-      );
-      let randomCoordinate = Math.floor(Math.random() * ship.ship.length);
-      let shipLength = ship.ship.length;
-      while (shipLength !== 0) {
-        if (
-          typeof coordinates[randomCoordinateLevel][randomCoordinate] ===
-            "object" &&
-          coordinates[randomCoordinateLevel][randomCoordinate] !== null &&
-          Array.isArray(coordinates[randomCoordinateLevel][randomCoordinate])
-        ) {
-          coordinates[randomCoordinateLevel][randomCoordinate] = ship.ship;
-          randomCoordinate++;
-          shipLength--;
-        } else return new Error("Invalid Ship Placement");
-      }
-    });
-  }
-  async function retryTillSuccess(fn, ...args) {
-    let success = false;
+  function placeShipRandomly(ship) {
+    let placed = false;
 
-    while (!success) {
-      try {
-        await fn(...args);
-        success = true;
-      } catch (error) {
-        return new Error(error.message);
+    while (!placed) {
+      const isHorizontal = Math.random() < 0.5;
+
+      const row = Math.floor(Math.random() * BOARD_SIZE);
+      const col = Math.floor(Math.random() * BOARD_SIZE);
+
+      if (canPlaceShip(row, col, ship.length, isHorizontal)) {
+        for (let i = 0; i < ship.length; i++) {
+          let r = row + (isHorizontal ? 0 : i);
+          let c = col + (isHorizontal ? i : 0);
+          coordinates[r][c] = ship.name;
+        }
+        placed = true;
       }
     }
   }
-  initCoordinates();
-  retryTillSuccess(placeShips);
+
+  function generateRandomLayout() {
+    shipTypes.sort((a, b) => b.length - a.length);
+
+    shipTypes.forEach((ship) => placeShipRandomly(ship));
+  }
+  generateRandomLayout();
   return {
     logCoordinates() {
-      console.log(coordinates);
+      console.table(coordinates);
     },
     receiveAttack(coordinates) {
       let [x, y] = coordinates;
