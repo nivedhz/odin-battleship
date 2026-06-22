@@ -1,12 +1,12 @@
 import GameBoard from "../src/game/GameBoard";
 
-test("board is 7x7", () => {
+test("board is 10x10", () => {
   const board = GameBoard();
 
-  expect(board.coordinates.length).toBe(7);
+  expect(board.coordinates.length).toBe(10);
 
   board.coordinates.forEach((row) => {
-    expect(row.length).toBe(7);
+    expect(row.length).toBe(10);
   });
 });
 test("all ships occupy 17 cells total", () => {
@@ -44,8 +44,8 @@ test("receiveAttack hits a ship", () => {
 
   let target;
 
-  for (let r = 0; r < 7; r++) {
-    for (let c = 0; c < 7; c++) {
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
         target = [r + 1, c + 1];
         break;
@@ -66,8 +66,8 @@ test("same attack does not count twice", () => {
 
   let target;
 
-  for (let r = 0; r < 7; r++) {
-    for (let c = 0; c < 7; c++) {
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
         target = [r + 1, c + 1];
         break;
@@ -105,8 +105,8 @@ test("attacking ship increases hit count", () => {
   let ship;
   let target;
 
-  for (let r = 0; r < 7; r++) {
-    for (let c = 0; c < 7; c++) {
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
         ship = board.coordinates[r][c];
         target = [r + 1, c + 1];
@@ -127,8 +127,8 @@ test("same coordinate cannot damage ship twice", () => {
   let ship;
   let target;
 
-  for (let r = 0; r < 7; r++) {
-    for (let c = 0; c < 7; c++) {
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
         ship = board.coordinates[r][c];
         target = [r + 1, c + 1];

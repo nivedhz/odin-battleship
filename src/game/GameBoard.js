@@ -1,7 +1,7 @@
 import Ship from "./Ship.js";
 
 const GameBoard = () => {
-  const BOARD_SIZE = 7;
+  const BOARD_SIZE = 10;
   const coordinates = Array(BOARD_SIZE)
     .fill(null)
     .map(() => Array(BOARD_SIZE).fill(0));
