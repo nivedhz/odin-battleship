@@ -149,8 +149,8 @@ test("returns true when all ships are sunk", () => {
 
   const attackedShips = new Set();
 
-  board.coordinates.forEach((row, r) => {
-    row.forEach((cell, c) => {
+  board.coordinates.forEach((row, _) => {
+    row.forEach((cell, _) => {
       if (typeof cell === "object" && !attackedShips.has(cell)) {
         attackedShips.add(cell);
 
