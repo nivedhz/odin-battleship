@@ -1,7 +1,7 @@
 import Ship from "./Ship.js";
 
 const GameBoard = () => {
-  const BOARD_SIZE = 7;
+  const BOARD_SIZE = 10;
   const coordinates = Array(BOARD_SIZE)
     .fill(null)
     .map(() => Array(BOARD_SIZE).fill(0));
@@ -12,7 +12,6 @@ const GameBoard = () => {
     Ship("Submarine", 3),
     Ship("Destroyer", 2),
   ];
-  let missedAttacks = 0;
   let attackedSpot = new Set();
 
   function canPlaceShip(row, col, size, isHorizontal) {
@@ -52,7 +51,7 @@ const GameBoard = () => {
   generateRandomLayout();
   return {
     coordinates,
-    missedAttacks,
+    attackedSpot,
     receiveAttack(coords) {
       let [x, y] = coords;
       x -= 1;
@@ -63,7 +62,6 @@ const GameBoard = () => {
           coordinates[x][y].hit();
         } else {
           coordinates[x][y] = 1;
-          missedAttacks++;
         }
       }
       attackedSpot.add(JSON.stringify([x, y]));

@@ -1,0 +1,64 @@
+.start-screen__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.start-screen__board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 400px;
+  height: 400px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: white;
+}
+.start-screen__grid-elem {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.start-screen__ship-elem {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 0.15rem solid rgba(0, 255, 0, 1);
+}
+.start-screen__water-elem {
+  background-color: rgba(0, 0, 255, 0.1);
+  border: 1px solid rgba(0, 0, 255, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 255, 0.5);
+  font-size: 2rem;
+}
+.start-screen__sunk-ship-elem {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 0.15rem solid rgba(255, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.start-screen__reload-img,
+.sunk-ship-elem__bomb-img {
+  width: 2rem;
+  height: 2rem;
+}
+.start-screen__reload-btn {
+  border-radius: 0.5rem;
+  background-color: blue;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+.start-screen__btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+.start-screen__start-btn {
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: blue;
+}
