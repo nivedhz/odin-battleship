@@ -1,47 +1,65 @@
 import { state } from "../data/state.js";
 import "../styles/start-screen.css";
-import bombImg from "../assets/bomb.svg";
-function createSelectionBoard() {
-  const boardContainer = document.createElement("div");
-  boardContainer.classList.add("start-screen__board-container");
-  let levelCoord = 0;
-  let gridCoord = 0;
-  state.player.gameboard.coordinates.forEach((level) => {
-    level.forEach((coordinate) => {
-      const gridElem = document.createElement("div");
-      if (typeof coordinate === "number") {
-        state.player.gameboard.receiveAttack([5, 2]);
-        state.player.gameboard.receiveAttack([4, 2]);
-        state.player.gameboard.receiveAttack([3, 2]);
-        if (coordinate === 0) {
-          gridElem.classList.add("start-screen__grid-elem");
+import reloadImg from "../assets/reload.svg";
+export const initStartScreen = (container) => {
+  function createSelectionBoard() {
+    const board = document.createElement("div");
+    board.classList.add("start-screen__board");
+    let levelCoord = 0;
+    let gridCoord = 0;
+    state.player.gameboard.coordinates.forEach((level) => {
+      level.forEach((coordinate) => {
+        const gridElem = document.createElement("div");
+        if (typeof coordinate === "number") {
+          if (coordinate === 0) {
+            gridElem.classList.add("start-screen__grid-elem");
+          }
         } else {
-          gridElem.classList.add("start-screen__water-elem");
-          gridElem.textContent = "\u2022";
+          gridElem.classList.add("start-screen__ship-elem");
         }
-      } else {
-        if (
-          state.player.gameboard.attackedSpot.has(
-            JSON.stringify([levelCoord, gridCoord]),
-          )
-        ) {
-          gridElem.classList.add("start-screen__sunk-ship-elem");
-          const bombImgContainer = document.createElement("img");
-          bombImgContainer.classList.add("sunk-ship-elem__bomb-img");
-          bombImgContainer.src = bombImg;
-          gridElem.append(bombImgContainer);
-        } else gridElem.classList.add("start-screen__ship-elem");
-      }
-      boardContainer.append(gridElem);
-      gridCoord++;
+        board.append(gridElem);
+        gridCoord++;
+      });
+      levelCoord++;
+      gridCoord = 0;
     });
-    levelCoord++;
-    gridCoord = 0;
-  });
 
-  return boardContainer;
-}
-export function createStartScreen(container) {
-  const selectionBoard = createSelectionBoard();
-  container.append(selectionBoard);
-}
+    return board;
+  }
+  function createReloadButton() {
+    const reloadBtn = document.createElement("button");
+    reloadBtn.classList.add("start-screen__reload-btn");
+    const reloadImgContainer = document.createElement("img");
+    reloadImgContainer.classList.add("start-screen__reload-img");
+    reloadImgContainer.src = reloadImg;
+    reloadBtn.append(reloadImgContainer);
+
+    return reloadBtn;
+  }
+  function createStartBtn() {
+    const startBtn = document.createElement("button");
+    startBtn.classList.add("start-screen__start-btn");
+    startBtn.textContent = "Start Game";
+
+    return startBtn;
+  }
+  function createStartScreen() {
+    const startScreen = document.createElement("div");
+    startScreen.classList.add("start-screen__container");
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("start-screen__btn-container");
+    const boardContainer = document.createElement("div");
+    boardContainer.classList.add("start-screen__board-container");
+    const selectionBoard = createSelectionBoard();
+    const reloadBtn = createReloadButton();
+    const startBtn = createStartBtn();
+    boardContainer.append(selectionBoard);
+    btnContainer.append(reloadBtn, startBtn);
+    startScreen.append(boardContainer, btnContainer);
+    container.append(startScreen);
+  }
+  return {
+    createStartScreen,
+    createSelectionBoard,
+  };
+};

@@ -1,4 +1,9 @@
-.start-screen__board-container {
+.start-screen__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.start-screen__board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -32,7 +37,28 @@
   justify-content: center;
   align-items: center;
 }
+.start-screen__reload-img,
 .sunk-ship-elem__bomb-img {
   width: 2rem;
   height: 2rem;
+}
+.start-screen__reload-btn {
+  border-radius: 0.5rem;
+  background-color: blue;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+.start-screen__btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+.start-screen__start-btn {
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: blue;
 }
