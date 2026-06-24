@@ -1,4 +1,4 @@
-import { initHandlers } from "./handlers/reload-start-screen.js";
+import { initHandlers } from "./handlers/init-delegated-events.js";
 import "./styles/style.css";
 import { initStartScreen } from "./ui/start-screen.js";
 
