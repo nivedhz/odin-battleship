@@ -1,0 +1,56 @@
+.game-screen__container {
+  display: flex;
+  gap: 5rem;
+}
+.game-screen__computer-board,
+.game-screen__player-board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 400px;
+  height: 400px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: white;
+}
+
+.game-screen__player-board-container {
+  cursor: not-allowed;
+}
+.game-screen__computer-board {
+  cursor: pointer;
+}
+.game-screen__computer-grid-elem,
+.game-screen__player-grid-elem {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.game-screen__player-water-elem {
+  background-color: rgba(0, 0, 255, 0.1);
+  border: 1px solid rgba(0, 0, 255, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 255, 0.5);
+  font-size: 2rem;
+}
+.game-screen__player-sunk-ship-elem {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 0.15rem solid rgba(255, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sunk-ship-elem__bomb-img {
+  height: 2rem;
+  width: 2rem;
+}
+.game-screen__computer-ship-elem,
+.game-screen__player-ship-elem {
+  background-color: rgba(0, 255, 0, 0.3);
+  border: 0.15rem solid rgba(0, 255, 0, 1);
+}
+.game-screen__player-heading,
+.game-screen__computer-heading {
+  color: white;
+}

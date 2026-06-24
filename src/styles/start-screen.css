@@ -51,12 +51,16 @@
   padding: 0.5rem;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .start-screen__btn-container {
   display: flex;
   justify-content: space-between;
 }
 .start-screen__start-btn {
+  cursor: pointer;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -64,6 +68,9 @@
   font-size: 1rem;
   font-weight: bold;
   background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .start-screen__heading {
   color: white;
