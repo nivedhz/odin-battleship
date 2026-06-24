@@ -21,7 +21,7 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .start-screen__ship-elem {
-  background-color: rgba(0, 255, 0, 0.1);
+  background-color: rgba(0, 255, 0, 0.3);
   border: 0.15rem solid rgba(0, 255, 0, 1);
 }
 .start-screen__water-elem {
@@ -64,4 +64,9 @@
   font-size: 1rem;
   font-weight: bold;
   background-color: blue;
+}
+.start-screen__heading {
+  color: white;
+  text-align: center;
+  font-size: 4rem;
 }
