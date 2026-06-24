@@ -27,3 +27,8 @@
   justify-content: center;
   align-items: center;
 }
+.disabled-board {
+  opacity: 0.8;
+  cursor: not-allowed;
+  pointer-events: none;
+}

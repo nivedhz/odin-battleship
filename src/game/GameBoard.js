@@ -54,8 +54,6 @@ const GameBoard = () => {
     attackedSpot,
     receiveAttack(coords) {
       let [x, y] = coords;
-      x -= 1;
-      y -= 1;
       if (x > BOARD_SIZE || y > BOARD_SIZE) return;
       if (!attackedSpot.has(JSON.stringify([x, y]))) {
         if (coordinates[x][y] !== 0 && typeof coordinates[x][y] === "object") {
