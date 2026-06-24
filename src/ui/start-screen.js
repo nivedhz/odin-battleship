@@ -1,7 +1,8 @@
 import { state } from "../data/state.js";
 import "../styles/start-screen.css";
 import reloadImg from "../assets/reload.svg";
-export const initStartScreen = (container) => {
+import { gameScreen } from "../ui/game-screen.js";
+export const initStartScreen = () => {
   function createHeading() {
     const heading = document.createElement("h1");
     heading.classList.add("start-screen__heading");
@@ -64,8 +65,9 @@ export const initStartScreen = (container) => {
     boardContainer.append(selectionBoard);
     btnContainer.append(reloadBtn, startBtn);
     startScreen.append(heading, boardContainer, btnContainer);
-    container.append(startScreen);
+    return startScreen;
   }
+  document.body.prepend(gameScreen().createWinnerModal());
   return {
     createStartScreen,
     createSelectionBoard,

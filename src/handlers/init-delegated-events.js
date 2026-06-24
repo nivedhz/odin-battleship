@@ -4,8 +4,8 @@ import Player from "../game/Player.js";
 import { gameScreen } from "../ui/game-screen.js";
 import { initStartScreen } from "../ui/start-screen.js";
 
-export function initHandlers(container) {
-  container.addEventListener("click", (e) => {
+export function initHandlers() {
+  document.body.addEventListener("click", (e) => {
     if (
       e.target.matches(".start-screen__reload-btn") ||
       e.target.matches(".start-screen__reload-img")
@@ -13,10 +13,12 @@ export function initHandlers(container) {
       state.player = Player(GameBoard());
       document
         .querySelector(".start-screen__board-container")
-        .replaceChildren(initStartScreen(container).createSelectionBoard());
+        .replaceChildren(initStartScreen().createSelectionBoard());
     }
     if (e.target.matches(".start-screen__start-btn")) {
-      container.replaceChildren(gameScreen().createGameScreen());
+      document
+        .querySelector(".container")
+        .replaceChildren(gameScreen().createGameScreen());
     }
     if (
       e.target.matches(".game-screen__computer-grid-elem") ||
@@ -37,6 +39,10 @@ export function initHandlers(container) {
         .forEach((board) => {
           board.classList.add("disabled-board");
         });
+      document
+        .querySelector(".game-screen__winner-modal-container")
+        .classList.remove("hidden");
+      gameScreen().changeWinner("Computer");
       console.log("All player ships are sunk");
     } else if (state.computer.gameboard.reportSunkStatus()) {
       document
@@ -46,6 +52,10 @@ export function initHandlers(container) {
         .forEach((board) => {
           board.classList.add("disabled-board");
         });
+      document
+        .querySelector(".game-screen__winner-modal-container")
+        .classList.remove("hidden");
+      gameScreen().changeWinner("You");
       console.log("All computer ships are sunk");
     } else {
       while (state.turn === state.computer) {
@@ -58,6 +68,14 @@ export function initHandlers(container) {
           .replaceChildren(gameScreen().createPlayerBoard(state.player));
         state.turn = state.player;
       }
+    }
+    if (e.target.matches(".winner-modal__retry-btn")) {
+      state.player = Player(GameBoard());
+      state.computer = Player(GameBoard());
+      document.querySelector(".game-screen__winner-modal-container").remove();
+      document
+        .querySelector(".container")
+        .replaceChildren(initStartScreen().createStartScreen());
     }
   });
 }
