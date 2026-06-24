@@ -1,7 +1,11 @@
 import Player from "../game/Player.js";
 import GameBoard from "../game/GameBoard.js";
 
-export const state = {
+const state = {
+  turn: null,
   player: Player(GameBoard()),
   computer: Player(GameBoard()),
 };
+
+state.turn = state.player;
+export { state };

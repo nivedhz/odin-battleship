@@ -59,12 +59,26 @@ export const gameScreen = () => {
     player.gameboard.coordinates.forEach((level) => {
       level.forEach((coordinate) => {
         const gridElem = document.createElement("div");
+        gridElem.dataset.id = `${levelCoord} ${gridCoord}`;
         if (typeof coordinate === "number") {
           if (coordinate === 0) {
             gridElem.classList.add("game-screen__computer-grid-elem");
+          } else {
+            gridElem.classList.add("game-screen__computer-water-elem");
+            gridElem.textContent = "\u2022";
           }
         } else {
-          gridElem.classList.add("game-screen__computer-ship-elem");
+          if (
+            player.gameboard.attackedSpot.has(
+              JSON.stringify([levelCoord, gridCoord]),
+            )
+          ) {
+            gridElem.classList.add("game-screen__computer-sunk-ship-elem");
+            const bombImgContainer = document.createElement("img");
+            bombImgContainer.classList.add("sunk-ship-elem__bomb-img");
+            bombImgContainer.src = bombImg;
+            gridElem.append(bombImgContainer);
+          } else gridElem.classList.add("game-screen__computer-ship-elem");
         }
         board.append(gridElem);
         gridCoord++;
@@ -87,5 +101,7 @@ export const gameScreen = () => {
   }
   return {
     createGameScreen,
+    createComputerBoard,
+    createPlayerBoard,
   };
 };
