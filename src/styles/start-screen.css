@@ -13,6 +13,9 @@
   overflow: hidden;
   background-color: white;
 }
+.start-screen__board-container {
+  cursor: not-allowed;
+}
 .start-screen__grid-elem {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
