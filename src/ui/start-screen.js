@@ -2,6 +2,13 @@ import { state } from "../data/state.js";
 import "../styles/start-screen.css";
 import reloadImg from "../assets/reload.svg";
 export const initStartScreen = (container) => {
+  function createHeading() {
+    const heading = document.createElement("h1");
+    heading.classList.add("start-screen__heading");
+    heading.textContent = "Battleship";
+
+    return heading;
+  }
   function createSelectionBoard() {
     const board = document.createElement("div");
     board.classList.add("start-screen__board");
@@ -50,12 +57,13 @@ export const initStartScreen = (container) => {
     btnContainer.classList.add("start-screen__btn-container");
     const boardContainer = document.createElement("div");
     boardContainer.classList.add("start-screen__board-container");
+    const heading = createHeading();
     const selectionBoard = createSelectionBoard();
     const reloadBtn = createReloadButton();
     const startBtn = createStartBtn();
     boardContainer.append(selectionBoard);
     btnContainer.append(reloadBtn, startBtn);
-    startScreen.append(boardContainer, btnContainer);
+    startScreen.append(heading, boardContainer, btnContainer);
     container.append(startScreen);
   }
   return {
