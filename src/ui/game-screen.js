@@ -90,6 +90,30 @@ export const gameScreen = () => {
     boardContainer.append(heading, board);
     return boardContainer;
   }
+  function createWinnerModal() {
+    const modalContainer = document.createElement("div");
+    modalContainer.classList.add(
+      "game-screen__winner-modal-container",
+      "hidden",
+    );
+    const winnerModal = document.createElement("div");
+    winnerModal.classList.add("game-screen__winner-modal");
+    const winnerHeading = document.createElement("h1");
+    winnerHeading.classList.add("winner-modal__winner-heading");
+    const retryBtn = document.createElement("button");
+    retryBtn.classList.add("winner-modal__retry-btn");
+    retryBtn.textContent = "Retry";
+
+    winnerModal.append(winnerHeading, retryBtn);
+    modalContainer.append(winnerModal);
+    return modalContainer;
+  }
+  function changeWinner(winner) {
+    const winnerHeading = document.querySelector(
+      ".winner-modal__winner-heading",
+    );
+    winnerHeading.textContent = `${winner} Won\x21`;
+  }
   function createGameScreen() {
     const gameScreenContainer = document.createElement("div");
     gameScreenContainer.classList.add("game-screen__container");
@@ -103,5 +127,7 @@ export const gameScreen = () => {
     createGameScreen,
     createComputerBoard,
     createPlayerBoard,
+    createWinnerModal,
+    changeWinner,
   };
 };
