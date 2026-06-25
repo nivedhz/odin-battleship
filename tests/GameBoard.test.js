@@ -47,7 +47,7 @@ test("receiveAttack hits a ship", () => {
   for (let r = 0; r < 10; r++) {
     for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
-        target = [r + 1, c + 1];
+        target = [r, c];
         break;
       }
     }
@@ -55,7 +55,7 @@ test("receiveAttack hits a ship", () => {
     if (target) break;
   }
 
-  const ship = board.coordinates[target[0] - 1][target[1] - 1];
+  const ship = board.coordinates[target[0]][target[1]];
 
   board.receiveAttack(target);
 
@@ -69,7 +69,7 @@ test("same attack does not count twice", () => {
   for (let r = 0; r < 10; r++) {
     for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
-        target = [r + 1, c + 1];
+        target = [r, c];
         break;
       }
     }
@@ -77,7 +77,7 @@ test("same attack does not count twice", () => {
     if (target) break;
   }
 
-  const ship = board.coordinates[target[0] - 1][target[1] - 1];
+  const ship = board.coordinates[target[0]][target[1]];
 
   board.receiveAttack(target);
   board.receiveAttack(target);
@@ -109,7 +109,7 @@ test("attacking ship increases hit count", () => {
     for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
         ship = board.coordinates[r][c];
-        target = [r + 1, c + 1];
+        target = [r, c];
         break;
       }
     }
@@ -131,7 +131,7 @@ test("same coordinate cannot damage ship twice", () => {
     for (let c = 0; c < 10; c++) {
       if (typeof board.coordinates[r][c] === "object") {
         ship = board.coordinates[r][c];
-        target = [r + 1, c + 1];
+        target = [r, c];
         break;
       }
     }

@@ -15,22 +15,30 @@ export function initHandlers() {
         .querySelector(".start-screen__board-container")
         .replaceChildren(initStartScreen().createSelectionBoard());
     }
+
     if (e.target.matches(".start-screen__start-btn")) {
       document
         .querySelector(".container")
         .replaceChildren(gameScreen().createGameScreen());
     }
+
     if (
       e.target.matches(".game-screen__computer-grid-elem") ||
       e.target.matches(".game-screen__computer-ship-elem")
     ) {
-      const [level, _, coords] = e.target.dataset.id.split("");
-      state.computer.gameboard.receiveAttack([Number(level), Number(coords)]);
+      const [level, coords] = e.target.dataset.id.split(" ");
+      const hit = state.computer.gameboard.receiveAttack([
+        Number(level),
+        Number(coords),
+      ]);
+      if (hit === "water") {
+        state.turn = state.computer;
+      }
       document
         .querySelector(".game-screen__computer-board-container")
         .replaceChildren(gameScreen().createComputerBoard(state.computer));
-      state.turn = state.computer;
     }
+
     if (state.player.gameboard.reportSunkStatus()) {
       document
         .querySelectorAll(
@@ -43,8 +51,8 @@ export function initHandlers() {
         .querySelector(".game-screen__winner-modal-container")
         .classList.remove("hidden");
       gameScreen().changeWinner("Computer");
-      console.log("All player ships are sunk");
-    } else if (state.computer.gameboard.reportSunkStatus()) {
+    }
+    if (state.computer.gameboard.reportSunkStatus()) {
       document
         .querySelectorAll(
           ".game-screen__computer-board-container,  .game-screen__player-board-container",
@@ -56,19 +64,29 @@ export function initHandlers() {
         .querySelector(".game-screen__winner-modal-container")
         .classList.remove("hidden");
       gameScreen().changeWinner("You");
-      console.log("All computer ships are sunk");
-    } else {
-      while (state.turn === state.computer) {
-        state.player.gameboard.receiveAttack([
-          Math.floor(Math.random() * 7),
-          Math.floor(Math.random() * 7),
+    }
+    while (state.turn === state.computer) {
+      const randomLevel = Math.floor(Math.random() * 10);
+      const randomCoords = Math.floor(Math.random() * 10);
+
+      if (
+        !state.player.gameboard.attackedSpot.has(
+          JSON.stringify([randomLevel, randomCoords]),
+        )
+      ) {
+        const hit = state.player.gameboard.receiveAttack([
+          randomLevel,
+          randomCoords,
         ]);
+        if (hit === "water") {
+          state.turn = state.player;
+        }
         document
           .querySelector(".game-screen__player-board-container")
           .replaceChildren(gameScreen().createPlayerBoard(state.player));
-        state.turn = state.player;
       }
     }
+
     if (e.target.matches(".winner-modal__retry-btn")) {
       state.player = Player(GameBoard());
       state.computer = Player(GameBoard());

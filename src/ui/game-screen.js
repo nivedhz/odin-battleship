@@ -3,6 +3,19 @@ import "../styles/game-screen.css";
 import bombImg from "../assets/bomb.svg";
 
 export const gameScreen = () => {
+  function createHeading() {
+    const headingBattle = document.createElement("span");
+    headingBattle.classList.add("start-screen__heading-battle");
+    headingBattle.textContent = "Battle";
+    const headingShip = document.createElement("span");
+    headingShip.classList.add("start-screen__heading-ship");
+    headingShip.textContent = "Ship";
+
+    const headingContainer = document.createElement("div");
+    headingContainer.classList.add("start-screen__heading_container");
+    headingContainer.append(headingBattle, headingShip);
+    return headingContainer;
+  }
   function createPlayerBoard(player) {
     const boardContainer = document.createElement("div");
     boardContainer.classList.add("game-screen__player-board-container");
@@ -78,7 +91,7 @@ export const gameScreen = () => {
             bombImgContainer.classList.add("sunk-ship-elem__bomb-img");
             bombImgContainer.src = bombImg;
             gridElem.append(bombImgContainer);
-          } else gridElem.classList.add("game-screen__computer-ship-elem");
+          } else gridElem.classList.add("game-screen__computer-grid-elem");
         }
         board.append(gridElem);
         gridCoord++;
@@ -102,26 +115,28 @@ export const gameScreen = () => {
     winnerHeading.classList.add("winner-modal__winner-heading");
     const retryBtn = document.createElement("button");
     retryBtn.classList.add("winner-modal__retry-btn");
-    retryBtn.textContent = "Retry";
+    retryBtn.textContent = "Play Again";
 
     winnerModal.append(winnerHeading, retryBtn);
     modalContainer.append(winnerModal);
     return modalContainer;
   }
   function changeWinner(winner) {
-    const winnerHeading = document.querySelector(
-      ".winner-modal__winner-heading",
-    );
-    winnerHeading.textContent = `${winner} Won\x21`;
+    document.querySelector(".winner-modal__winner-heading").textContent =
+      `${winner} Won\x21`;
   }
   function createGameScreen() {
+    const gameContainer = document.createElement("div");
+    gameContainer.classList.add("game-screen__game-container");
     const gameScreenContainer = document.createElement("div");
     gameScreenContainer.classList.add("game-screen__container");
+    const heading = createHeading();
     const userBoard = createPlayerBoard(state.player);
     const computerBoard = createComputerBoard(state.computer);
     gameScreenContainer.append(userBoard, computerBoard);
 
-    return gameScreenContainer;
+    gameContainer.append(heading, gameScreenContainer);
+    return gameContainer;
   }
   return {
     createGameScreen,
