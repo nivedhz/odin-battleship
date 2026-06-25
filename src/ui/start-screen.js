@@ -4,11 +4,17 @@ import reloadImg from "../assets/reload.svg";
 import { gameScreen } from "../ui/game-screen.js";
 export const initStartScreen = () => {
   function createHeading() {
-    const heading = document.createElement("h1");
-    heading.classList.add("start-screen__heading");
-    heading.textContent = "Battleship";
+    const headingBattle = document.createElement("span");
+    headingBattle.classList.add("start-screen__heading-battle");
+    headingBattle.textContent = "Battle";
+    const headingShip = document.createElement("span");
+    headingShip.classList.add("start-screen__heading-ship");
+    headingShip.textContent = "Ship";
 
-    return heading;
+    const headingContainer = document.createElement("div");
+    headingContainer.classList.add("start-screen__heading_container");
+    headingContainer.append(headingBattle, headingShip);
+    return headingContainer;
   }
   function createSelectionBoard() {
     const board = document.createElement("div");
@@ -51,6 +57,9 @@ export const initStartScreen = () => {
 
     return startBtn;
   }
+  function initModals() {
+    document.body.prepend(gameScreen().createWinnerModal());
+  }
   function createStartScreen() {
     const startScreen = document.createElement("div");
     startScreen.classList.add("start-screen__container");
@@ -67,7 +76,7 @@ export const initStartScreen = () => {
     startScreen.append(heading, boardContainer, btnContainer);
     return startScreen;
   }
-  document.body.prepend(gameScreen().createWinnerModal());
+  initModals();
   return {
     createStartScreen,
     createSelectionBoard,

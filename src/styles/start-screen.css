@@ -21,8 +21,8 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .start-screen__ship-elem {
-  background-color: rgba(0, 255, 0, 0.3);
-  border: 0.15rem solid rgba(0, 255, 0, 1);
+  background-color: rgba(255, 100, 0, 0.3);
+  border: 0.15rem solid rgba(255, 100, 0, 1);
 }
 .start-screen__water-elem {
   background-color: rgba(0, 0, 255, 0.1);
@@ -54,6 +54,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:
+    transform 250ms ease-in-out,
+    box-shadow 250ms ease-in-out;
+}
+.start-screen__reload-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 255, 0.15);
 }
 .start-screen__btn-container {
   display: flex;
@@ -71,9 +78,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:
+    transform 250ms ease-in-out,
+    box-shadow 250ms ease-in-out;
 }
-.start-screen__heading {
-  color: white;
+.start-screen__start-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 255, 0.15);
+}
+.start-screen__heading-ship,
+.start-screen__heading-battle {
   text-align: center;
   font-size: 4rem;
+  font-weight: 700;
+}
+.start-screen__heading-ship {
+  color: rgba(0, 100, 255, 1);
+}
+.start-screen__heading-battle {
+  color: rgba(255, 100, 0, 1);
+}
+.start-screen__heading_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
