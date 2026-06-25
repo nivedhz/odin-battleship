@@ -27,13 +27,8 @@ export function initHandlers() {
       e.target.matches(".game-screen__computer-ship-elem")
     ) {
       const [level, coords] = e.target.dataset.id.split(" ");
-      const hit = state.computer.gameboard.receiveAttack([
-        Number(level),
-        Number(coords),
-      ]);
-      if (hit === "water") {
-        state.turn = state.computer;
-      }
+      state.computer.gameboard.receiveAttack([Number(level), Number(coords)]);
+      state.turn = state.computer;
       document
         .querySelector(".game-screen__computer-board-container")
         .replaceChildren(gameScreen().createComputerBoard(state.computer));
@@ -74,13 +69,8 @@ export function initHandlers() {
           JSON.stringify([randomLevel, randomCoords]),
         )
       ) {
-        const hit = state.player.gameboard.receiveAttack([
-          randomLevel,
-          randomCoords,
-        ]);
-        if (hit === "water") {
-          state.turn = state.player;
-        }
+        state.player.gameboard.receiveAttack([randomLevel, randomCoords]);
+        state.turn = state.player;
         document
           .querySelector(".game-screen__player-board-container")
           .replaceChildren(gameScreen().createPlayerBoard(state.player));

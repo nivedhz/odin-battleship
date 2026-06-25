@@ -54,16 +54,14 @@ const GameBoard = () => {
     attackedSpot,
     receiveAttack(coords) {
       let [x, y] = coords;
-      if (x >= BOARD_SIZE || y >= BOARD_SIZE) return false;
+      if (x >= BOARD_SIZE || y >= BOARD_SIZE) return;
       const key = JSON.stringify([x, y]);
       if (!attackedSpot.has(key)) {
         attackedSpot.add(key);
         if (coordinates[x][y] !== 0 && typeof coordinates[x][y] === "object") {
           coordinates[x][y].hit();
-          return true;
         } else {
           coordinates[x][y] = 1;
-          return "water";
         }
       }
     },
