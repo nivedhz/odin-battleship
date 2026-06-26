@@ -77,7 +77,12 @@ export function initHandlers() {
       }
     }
 
-    if (e.target.matches(".winner-modal__retry-btn")) {
+    if (
+      e.target.matches(".winner-modal__retry-btn") ||
+      e.target.matches(".start-screen__heading-container") ||
+      e.target.matches(".start-screen__heading-ship") ||
+      e.target.matches(".start-screen__heading-battle")
+    ) {
       state.player = Player(GameBoard());
       state.computer = Player(GameBoard());
       document.querySelector(".game-screen__winner-modal-container").remove();
