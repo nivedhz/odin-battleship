@@ -18,11 +18,9 @@
 }
 .game-screen__player-board {
   border: 5px solid orange;
-}
-
-.game-screen__player-board-container {
   cursor: not-allowed;
 }
+
 .game-screen__computer-board {
   cursor: crosshair;
 }
