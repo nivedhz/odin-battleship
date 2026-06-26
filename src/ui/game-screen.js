@@ -46,6 +46,7 @@ export const gameScreen = () => {
             const bombImgContainer = document.createElement("img");
             bombImgContainer.classList.add("sunk-ship-elem__bomb-img");
             bombImgContainer.src = bombImg;
+            bombImgContainer.alt = "bomb";
             gridElem.append(bombImgContainer);
           } else gridElem.classList.add("game-screen__player-ship-elem");
         }
@@ -90,6 +91,7 @@ export const gameScreen = () => {
             const bombImgContainer = document.createElement("img");
             bombImgContainer.classList.add("sunk-ship-elem__bomb-img");
             bombImgContainer.src = bombImg;
+            bombImgContainer.alt = "bomb";
             gridElem.append(bombImgContainer);
           } else gridElem.classList.add("game-screen__computer-grid-elem");
         }
