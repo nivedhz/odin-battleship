@@ -15,7 +15,14 @@
 }
 .start-screen__board-container {
   cursor: not-allowed;
+  border: 5px solid transparent;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(to right, orange, blue) border-box;
 }
+
 .start-screen__grid-elem {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -45,27 +52,11 @@
   width: 2rem;
   height: 2rem;
 }
-.start-screen__reload-btn {
-  border-radius: 0.5rem;
-  background-color: blue;
-  padding: 0.5rem;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition:
-    transform 250ms ease-in-out,
-    box-shadow 250ms ease-in-out;
-}
-.start-screen__reload-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 0px 10px 10px rgba(0, 0, 255, 0.15);
-}
 .start-screen__btn-container {
   display: flex;
   justify-content: space-between;
 }
+.start-screen__reload-btn,
 .start-screen__start-btn {
   cursor: pointer;
   color: white;
@@ -82,10 +73,27 @@
     transform 250ms ease-in-out,
     box-shadow 250ms ease-in-out;
 }
+.start-screen__reload-btn {
+  background-color: rgba(255, 100, 0, 1);
+}
+.start-screen__reload-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px 15px rgba(255, 100, 0, 0.15);
+}
 .start-screen__start-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0px 0px 10px 10px rgba(0, 0, 255, 0.15);
+  box-shadow: 0px 0px 15px 15px rgba(0, 0, 255, 0.15);
 }
+
+.start-screen__reload-btn:active {
+  transform: scale(1);
+  box-shadow: 0px 0px 5px 5px rgba(255, 100, 0, 0.15);
+}
+.start-screen__start-btn:active {
+  transform: scale(1);
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 255, 0.15);
+}
+
 .start-screen__heading-ship,
 .start-screen__heading-battle {
   text-align: center;

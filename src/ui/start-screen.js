@@ -43,9 +43,11 @@ export const initStartScreen = () => {
   function createReloadButton() {
     const reloadBtn = document.createElement("button");
     reloadBtn.classList.add("start-screen__reload-btn");
+    reloadBtn.title = "Reload Placement";
     const reloadImgContainer = document.createElement("img");
     reloadImgContainer.classList.add("start-screen__reload-img");
     reloadImgContainer.src = reloadImg;
+    reloadImgContainer.alt = "reload";
     reloadBtn.append(reloadImgContainer);
 
     return reloadBtn;
@@ -54,6 +56,7 @@ export const initStartScreen = () => {
     const startBtn = document.createElement("button");
     startBtn.classList.add("start-screen__start-btn");
     startBtn.textContent = "Start Game";
+    startBtn.title = "Start Game";
 
     return startBtn;
   }
