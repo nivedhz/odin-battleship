@@ -46,8 +46,7 @@ export function initHandlers() {
         .querySelector(".game-screen__winner-modal-container")
         .classList.remove("hidden");
       gameScreen().changeWinner("Computer");
-    }
-    if (state.computer.gameboard.reportSunkStatus()) {
+    } else if (state.computer.gameboard.reportSunkStatus()) {
       document
         .querySelectorAll(
           ".game-screen__computer-board-container,  .game-screen__player-board-container",
@@ -59,21 +58,22 @@ export function initHandlers() {
         .querySelector(".game-screen__winner-modal-container")
         .classList.remove("hidden");
       gameScreen().changeWinner("You");
-    }
-    while (state.turn === state.computer) {
-      const randomLevel = Math.floor(Math.random() * 10);
-      const randomCoords = Math.floor(Math.random() * 10);
+    } else {
+      while (state.turn === state.computer) {
+        const randomLevel = Math.floor(Math.random() * 10);
+        const randomCoords = Math.floor(Math.random() * 10);
 
-      if (
-        !state.player.gameboard.attackedSpot.has(
-          JSON.stringify([randomLevel, randomCoords]),
-        )
-      ) {
-        state.player.gameboard.receiveAttack([randomLevel, randomCoords]);
-        state.turn = state.player;
-        document
-          .querySelector(".game-screen__player-board-container")
-          .replaceChildren(gameScreen().createPlayerBoard(state.player));
+        if (
+          !state.player.gameboard.attackedSpot.has(
+            JSON.stringify([randomLevel, randomCoords]),
+          )
+        ) {
+          state.player.gameboard.receiveAttack([randomLevel, randomCoords]);
+          state.turn = state.player;
+          document
+            .querySelector(".game-screen__player-board-container")
+            .replaceChildren(gameScreen().createPlayerBoard(state.player));
+        }
       }
     }
 
