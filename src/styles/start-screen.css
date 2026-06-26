@@ -106,11 +106,7 @@
 .start-screen__heading-battle {
   color: rgba(255, 100, 0, 1);
 }
+
 .start-screen__heading_container {
   text-align: center;
-  transition: transform 200ms ease-in-out;
-  cursor: pointer;
-}
-.start-screen__heading_container:hover {
-  transform: scale(1.05);
 }

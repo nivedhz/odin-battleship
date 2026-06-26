@@ -137,3 +137,23 @@
   justify-content: center;
   align-items: center;
 }
+.game-screen__heading-ship,
+.game-screen__heading-battle {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
+}
+.game-screen__heading-ship {
+  color: rgba(0, 100, 255, 1);
+}
+.game-screen__heading-battle {
+  color: rgba(255, 100, 0, 1);
+}
+.game-screen__heading_container {
+  text-align: center;
+  transition: transform 200ms ease-in-out;
+  cursor: pointer;
+}
+.game-screen__heading_container:hover {
+  transform: scale(1.05);
+}

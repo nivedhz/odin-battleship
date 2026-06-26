@@ -5,14 +5,15 @@ import bombImg from "../assets/bomb.svg";
 export const gameScreen = () => {
   function createHeading() {
     const headingBattle = document.createElement("span");
-    headingBattle.classList.add("start-screen__heading-battle");
+    headingBattle.classList.add("game-screen__heading-battle");
     headingBattle.textContent = "Battle";
     const headingShip = document.createElement("span");
-    headingShip.classList.add("start-screen__heading-ship");
+    headingShip.classList.add("game-screen__heading-ship");
     headingShip.textContent = "Ship";
 
     const headingContainer = document.createElement("div");
-    headingContainer.classList.add("start-screen__heading_container");
+    headingContainer.classList.add("game-screen__heading_container");
+    headingContainer.title = "Restart Game";
     headingContainer.append(headingBattle, headingShip);
     return headingContainer;
   }

@@ -13,6 +13,7 @@ export const initStartScreen = () => {
 
     const headingContainer = document.createElement("div");
     headingContainer.classList.add("start-screen__heading_container");
+    headingContainer.title = "Game Title";
     headingContainer.append(headingBattle, headingShip);
     return headingContainer;
   }
